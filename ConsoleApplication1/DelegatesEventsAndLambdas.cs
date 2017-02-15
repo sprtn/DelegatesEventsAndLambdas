@@ -87,17 +87,18 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
-    public delegate void MyDelegate(int arg1, int arg2);
+    public delegate void MyDelegate(int arg1, ref int arg2);
 
     class DelegatesEventsAndLambdas
     {
-        static void func1(int arg1, int arg2)
+        static void func1(int arg1, ref int arg2)
         {
             string result = (arg1 + arg2).ToString();
+            arg2 += 20; // arg2 is a ref parameter
             Console.WriteLine("The number is: " + result);
         }
 
-        static void func2(int arg1, int arg2)
+        static void func2(int arg1, ref int arg2)
         {
             string result = (arg1 * arg2).ToString();
             Console.WriteLine("The number is: " + result);
@@ -105,20 +106,15 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
+            int a = 10, b = 10;
             MyDelegate f1 = func1;
             MyDelegate f2 = func2;
-            MyDelegate f1f2 = f1 + f2;
+            MyDelegate combined = f1 + f2;
 
-            Console.WriteLine("Calling the first delegate");
-            f1(10, 20);
-            Console.WriteLine("Calling the second delegate");
-            f2(10, 20);
-            Console.WriteLine("Calling the chained delegate");
-            f1f2(10, 20);
+            Console.WriteLine("The vale of b is: {0}", b);
+            combined(a, ref b);
+            Console.WriteLine("The vale of b is: {0}", b);
 
-            Console.WriteLine("Calling the unchained delegate");
-            f1f2 -= f1;
-            f1f2(10, 20);
             Console.WriteLine("\nPress Enter Key to Continue");
             Console.ReadLine();
         }
