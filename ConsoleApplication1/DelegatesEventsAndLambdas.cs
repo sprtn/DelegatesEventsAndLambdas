@@ -59,6 +59,14 @@ namespace ConsoleApplication1
 {
     public delegate string MyDelegate(int arg1, int arg2);
 
+    class MyClass
+    {
+        public string instanceMethod1(int arg1, int arg2)
+        {
+            return ((arg1 + arg2) * arg1).ToString();
+        }
+    }
+
     class DelegatesEventsAndLambdas
     {
         static string func1(int a, int b)
@@ -79,6 +87,11 @@ namespace ConsoleApplication1
             // Delegate the method func2 to f
             f = func2;
             // Input the arguments
+            Console.WriteLine("The number is: " + f(10, 20));
+
+            //Delegating a method from a seperate class works just as fine
+            MyClass mc = new MyClass();
+            f = mc.instanceMethod1;
             Console.WriteLine("The number is: " + f(10, 20));
 
             Console.WriteLine("\nPress Enter Key to End...");
