@@ -83,40 +83,21 @@ using System.Threading.Tasks;
 ///     Only the last return value will be returned to the calling function
 ///     To pass results from one delegate to another, use ref variables.
 /// 
+/// 
+///     
+/// 
 /// </summary>
 
 namespace ConsoleApplication1
 {
-    public delegate void MyDelegate(int arg1, ref int arg2);
+    public delegate void MyDelegate(int arg1, int arg2);
 
     class DelegatesEventsAndLambdas
     {
-        static void func1(int arg1, ref int arg2)
-        {
-            string result = (arg1 + arg2).ToString();
-            arg2 += 20; // arg2 is a ref parameter
-            Console.WriteLine("The number is: " + result);
-        }
-
-        static void func2(int arg1, ref int arg2)
-        {
-            string result = (arg1 * arg2).ToString();
-            Console.WriteLine("The number is: " + result);
-        }
 
         static void Main(string[] args)
         {
-            int a = 10, b = 10;
-            MyDelegate f1 = func1;
-            MyDelegate f2 = func2;
-            MyDelegate combined = f1 + f2;
-
-            Console.WriteLine("The vale of b is: {0}", b);
-            combined(a, ref b);
-            Console.WriteLine("The vale of b is: {0}", b);
-
-            Console.WriteLine("\nPress Enter Key to Continue");
-            Console.ReadLine();
+            
         }
     }
 }
