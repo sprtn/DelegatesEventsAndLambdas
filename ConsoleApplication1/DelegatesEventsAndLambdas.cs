@@ -115,6 +115,10 @@ namespace ConsoleApplication1
             f2(10, 20);
             Console.WriteLine("Calling the chained delegate");
             f1f2(10, 20);
+
+            Console.WriteLine("Calling the unchained delegate");
+            f1f2 -= f1;
+            f1f2(10, 20);
             Console.WriteLine("\nPress Enter Key to Continue");
             Console.ReadLine();
         }
