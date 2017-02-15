@@ -42,56 +42,47 @@ using System.Threading.Tasks;
 ///     Can be used to define callback functions
 ///     Can be dynamically switched at runtime
 /// 
-/// public delegate int MyDelegate(int i, string s);
+/// Basic Delegates
+///     public delegate int MyDelegate(int i, string s);
 /// 
-/// int MyFunc(int i, string s) {
-///     // delegate implementation goes here
-/// }
-/// ...
-/// // Somewhere else in the code
-/// MyDelegate f = MyFunc;
-/// // later, call the delegate
-///     int result = f(250, "Hello World");
+///     int MyFunc(int i, string s) {
+///         -- delegate implementation goes here
+///     }
+///     ...
+///     -- Somewhere else in the code
+///     MyDelegate f = MyFunc;
+///     // later, call the delegate
+///         int result = f(250, "Hello World");
 /// 
+/// Anonymous Delegates
+///     public delegate int MyDelegate(int i, string s);
+///     
+///     {
+///         ...
+///         -- Somewhere in the code
+///         MyDelegate f = delegate(int i, string s) {
+///             -- implementation code goes here, right inline
+///         };
+///         
+///         -- later, call the delegate
+///         int result = f(250, "Hello World");
+///     }
+///     
+///     
 /// </summary>
 
 namespace ConsoleApplication1
 {
     public delegate string MyDelegate(int arg1, int arg2);
 
-    class MyClass
-    {
-        public string instanceMethod1(int arg1, int arg2)
-        {
-            return ((arg1 + arg2) * arg1).ToString();
-        }
-    }
-
     class DelegatesEventsAndLambdas
     {
-        static string func1(int a, int b)
-        {
-            return (a + b).ToString();
-        }
-        static string func2(int a, int b)
-        {
-            return (a * b).ToString();
-        }
-
         static void Main(string[] args)
         {
-            // Delegate the method func1 f to MyDelegate
-            MyDelegate f = func1;
-            // Input the arguments
-            Console.WriteLine("The number is: " + f(10, 20));
-            // Delegate the method func2 to f
-            f = func2;
-            // Input the arguments
-            Console.WriteLine("The number is: " + f(10, 20));
-
-            //Delegating a method from a seperate class works just as fine
-            MyClass mc = new MyClass();
-            f = mc.instanceMethod1;
+            MyDelegate f = delegate(int arg1, int arg2) 
+            {
+                return (arg1 + arg2).ToString();
+            };
             Console.WriteLine("The number is: " + f(10, 20));
 
             Console.WriteLine("\nPress Enter Key to End...");
