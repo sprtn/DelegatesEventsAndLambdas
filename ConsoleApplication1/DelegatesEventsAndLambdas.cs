@@ -67,25 +67,55 @@ using System.Threading.Tasks;
 ///         -- later, call the delegate
 ///         int result = f(250, "Hello World");
 ///     }
+/// 
+/// Composable Delegates
+///     Functions: foo, bar and baz.
+///     MyDelegate f1 = foo, f2 = bar, f3 = baz;
+///     MyDelegate all = f1 + f2;
+///     MyDelegate all += f3;
+/// 
+///     int result = all(250, "Hello!");
+///     all -= f2;
 ///     
+///     result = all(100, "Goodbye!");
 ///     
+///     Unhandled exceptions will skip remaining delegates.
+///     Only the last return value will be returned to the calling function
+///     To pass results from one delegate to another, use ref variables.
+/// 
 /// </summary>
 
 namespace ConsoleApplication1
 {
-    public delegate string MyDelegate(int arg1, int arg2);
+    public delegate void MyDelegate(int arg1, int arg2);
 
     class DelegatesEventsAndLambdas
     {
+        static void func1(int arg1, int arg2)
+        {
+            string result = (arg1 + arg2).ToString();
+            Console.WriteLine("The number is: " + result);
+        }
+
+        static void func2(int arg1, int arg2)
+        {
+            string result = (arg1 * arg2).ToString();
+            Console.WriteLine("The number is: " + result);
+        }
+
         static void Main(string[] args)
         {
-            MyDelegate f = delegate(int arg1, int arg2) 
-            {
-                return (arg1 + arg2).ToString();
-            };
-            Console.WriteLine("The number is: " + f(10, 20));
+            MyDelegate f1 = func1;
+            MyDelegate f2 = func2;
+            MyDelegate f1f2 = f1 + f2;
 
-            Console.WriteLine("\nPress Enter Key to End...");
+            Console.WriteLine("Calling the first delegate");
+            f1(10, 20);
+            Console.WriteLine("Calling the second delegate");
+            f2(10, 20);
+            Console.WriteLine("Calling the chained delegate");
+            f1f2(10, 20);
+            Console.WriteLine("\nPress Enter Key to Continue");
             Console.ReadLine();
         }
     }
