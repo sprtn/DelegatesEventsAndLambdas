@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
@@ -97,7 +98,26 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
-            
+            for (int i = 0; i < 50; i++)
+            {
+                Thread mythread = new Thread(new ThreadStart(Work));
+
+                Task.Run(() =>
+                {
+                    Console.WriteLine("Starting task in thread: " +
+                        Thread.CurrentThread.ManagedThreadId);
+                    Thread.Sleep(500);
+                    Console.WriteLine("Task complete.");
+                });
+            }
+            Console.ReadLine();
+        }
+
+        static void Work()
+        {
+            Console.WriteLine("Starting work in thread: " + 
+                Thread.CurrentThread.ManagedThreadId);
+            Thread.Sleep(2000);
         }
     }
 }
